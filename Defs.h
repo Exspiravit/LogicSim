@@ -100,10 +100,21 @@ enum FANOUT
 	AND2_FANOUT = 5	//Default fan out of 2-input AND gate
 };
 
-//A structure to contain drawing parameters for each component
-struct GraphicsInfo
+class GraphicsInfo
 {
-	int x, y, Width, Height;
+private:
+	int X, Y, Width, Height;
+public:
+    GraphicsInfo(int X, int Y, int Width, int Height) {SetX(X); SetY(Y); SetWidth(Width); SetHeight(Height);}
+    int GetX() {return X;}
+    int GetY() {return Y;}
+    int GetWidth() {return Width;}
+    int GetHeight() {return Height;}
+    void SetX(int X) {this->X = (X<0)?0:X;}
+    void SetY(int Y) {this->Y = (Y<0)?0:Y;}
+    void SetWidth(int Width) {this->Width = (Width<0)?0:Width;}
+    void SetHeight(int Height) {this->Height = (Height<0)?0:Height;}
+    bool Contains(int x, int y) {return (x > X && x < X+Width && y > Y && y < Y+Height);}
 };
 
 #ifndef NULL
