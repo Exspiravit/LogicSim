@@ -1,36 +1,20 @@
 #include "Input.h"
 
+#include "UI_Info.h"
 #include "Output.h"
 #include "Bar.h"
 
 Input::Input(sf::RenderWindow* pWind)
 {
     this->pWind = pWind;
-    GraphicsInfo GfxInfo;
-    GfxInfo.x = 0;
-    GfxInfo.y = 0;                      ///TO-BE-EDITED
-    GfxInfo.Height = 700;               ///TO-BE-EDITED
-    GfxInfo.Width = 65;                 ///TO-BE-EDITED
-    DesignBar = new Bar(GfxInfo);
-    GfxInfo.x = 0;
-    GfxInfo.y = 700;                    ///TO-BE-EDITED
-    GfxInfo.Height = 50;                ///TO-BE-EDITED
-    GfxInfo.Width = 1000;               ///TO-BE-EDITED
-    SimulationBar = new Bar(GfxInfo);
+    DesignBar = new Bar(GraphicsInfo(0, 0, UI.ToolBarWidth, UI.WindowHeight - UI.StatusBarHeight));
+    SimulationBar = new Bar(GraphicsInfo(0, 0, UI.ToolBarWidth, UI.WindowHeight - UI.StatusBarHeight));
     ActiveBar = DesignBar;
-    GfxInfo.Height = 55;
-    GfxInfo.Width = 55;
-    GfxInfo.x = 5;
-    GfxInfo.y = 5;
-    DesignBar->AddButton(GfxInfo, "add", ADD);
-    GfxInfo.y = 65;
-    DesignBar->AddButton(GfxInfo, "delete", DEL);
-    GfxInfo.y = 125;
-    DesignBar->AddButton(GfxInfo, "copy", COPY);
-    GfxInfo.y = 185;
-    DesignBar->AddButton(GfxInfo, "cut", CUT);
-    GfxInfo.y = 245;
-    DesignBar->AddButton(GfxInfo, "paste", PASTE);
+    DesignBar->AddButton(GraphicsInfo(5, 5, UI.ButtonWidth, UI.ButtonHeight), "add", ADD);
+    DesignBar->AddButton(GraphicsInfo(5, 65, UI.ButtonWidth, UI.ButtonHeight), "delete", DEL);
+    DesignBar->AddButton(GraphicsInfo(5, 125, UI.ButtonWidth, UI.ButtonHeight), "copy", COPY);
+    DesignBar->AddButton(GraphicsInfo(5, 185, UI.ButtonWidth, UI.ButtonHeight), "cut", CUT);
+    DesignBar->AddButton(GraphicsInfo(5, 245, UI.ButtonWidth, UI.ButtonHeight), "paste", PASTE);
 
     ///TO-BE-CONTINUED
 }
