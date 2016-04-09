@@ -2,12 +2,8 @@
 
 #include "Output.h"
 
-Button::Button(const GraphicsInfo& r_GfxInfo, const std::string& r_ImagePath, ActionType r_Act)
+Button::Button(const GraphicsInfo& r_GfxInfo, const std::string& r_ImagePath, ActionType r_Act): m_GfxInfo(r_GfxInfo)
 {
-    m_GfxInfo.x = r_GfxInfo.x;
-    m_GfxInfo.y = r_GfxInfo.y;
-    m_GfxInfo.Height = r_GfxInfo.Height;
-    m_GfxInfo.Width = r_GfxInfo.Width;
     m_ImagePath = r_ImagePath;
     m_Act = r_Act;
     m_Pressed = false;
