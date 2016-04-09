@@ -14,6 +14,8 @@ struct UI_Info
 						StatusBarHeight = 50,
 						ToolBarWidth = 65,
 						BarBorderThickness = 4,
+						ButtonWidth = 55,
+						ButtonHeight = 55,
 						GridSize = 20;
 
 	sf::Color BarColor;
@@ -27,4 +29,5 @@ struct UI_Info
 	static const int	Gate_Width = 60,
 						Gate_Height = 60;
 
-}UI;
+}static UI;
+
