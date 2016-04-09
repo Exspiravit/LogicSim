@@ -6,7 +6,7 @@
 
 Output::Output()
 {
-    UI.BarColor = sf::Color(0x7a, 0x7a, 0x7a);
+    UI.BarColor = sf::Color(0xbd, 0xc3, 0xc7);
     UI.BorderColor = sf::Color::Black;
     UI.ConnectionColor = sf::Color::Black;
     UI.BackgroundColor = sf::Color::White;
@@ -14,12 +14,7 @@ Output::Output()
     UI.Title = "Logic Simulator";
 
     pWind = new sf::RenderWindow(sf::VideoMode(UI.WindowWidth,UI.WindowHeight), UI.Title);
-    GraphicsInfo GfxInfo;
-    GfxInfo.x = 0;
-    GfxInfo.y = UI.WindowHeight - UI.StatusBarHeight;
-    GfxInfo.Height = UI.WindowHeight;
-    GfxInfo.Width = UI.WindowWidth;
-    StatusBar = new Bar(GfxInfo);
+    StatusBar = new Bar(GraphicsInfo(0, UI.WindowHeight - UI.StatusBarHeight, UI.WindowWidth, UI.StatusBarHeight));
 }
 
 Output::~Output()
@@ -46,9 +41,9 @@ void Output::ClearStatusBar()
 void Output::DrawBar(GraphicsInfo GfxInfo)
 {
     sf::RectangleShape Rectangle;
-    Rectangle.setSize(sf::Vector2f(GfxInfo.Width, GfxInfo.Height));
-    Rectangle.setPosition(GfxInfo.x, GfxInfo.y);
-    Rectangle.setFillColor(UI.BarColor);
+    Rectangle.setSize(sf::Vector2f(GfxInfo.GetWidth(), GfxInfo.GetHeight()));
+    Rectangle.setPosition(GfxInfo.GetX(), GfxInfo.GetY());
+    Rectangle.setFillColor(UI.BackgroundColor);
     Rectangle.setOutlineColor(UI.BorderColor);
     Rectangle.setOutlineThickness(UI.BarBorderThickness);
     pWind->draw(Rectangle);
@@ -60,8 +55,8 @@ void Output::DrawButton(GraphicsInfo GfxInfo, std::string ImagePath, bool Presse
     Texture.loadFromFile("Graphics/Buttons/"+ImagePath+".png");
     sf::Sprite Sprite;
     Sprite.setTexture(Texture);
-    Sprite.setPosition(GfxInfo.x, GfxInfo.y);
-    if(Pressed)
+    Sprite.setPosition(GfxInfo.GetX(), GfxInfo.GetY());
+    if(Pressed||((Sprite.getGlobalBounds().contains(sf::Mouse::getPosition(*(pWind)).x, sf::Mouse::getPosition(*(pWind)).y))&&sf::Mouse::isButtonPressed(sf::Mouse::Left)))
         Sprite.setTextureRect(sf::IntRect(110, 0, 55, 55));
     else
         if(Sprite.getGlobalBounds().contains(sf::Mouse::getPosition(*(pWind)).x, sf::Mouse::getPosition(*(pWind)).y))
@@ -80,7 +75,7 @@ void Output::DrawCanvas(bool ShowGrid)
     pWind->draw(Rectangle);
     if(ShowGrid)
     {
-        for(int i = 20; i < UI.WindowHeight - UI.StatusBarHeight; i+=20)
+        for(int i = 10; i < UI.WindowHeight - UI.StatusBarHeight; i+=10)
         {
             sf::Vertex line[] =
             {
@@ -89,7 +84,7 @@ void Output::DrawCanvas(bool ShowGrid)
             };
             pWind->draw(line, 2, sf::Lines);
         }
-        for(int i = UI.ToolBarWidth + 20; i < UI.WindowWidth; i+=20)
+        for(int i = UI.ToolBarWidth + 10; i < UI.WindowWidth; i+=10)
         {
             sf::Vertex line[] =
             {
@@ -127,5 +122,11 @@ void Output::DrawConnection(const std::vector< std::pair<int,int> >& Vertices, b
 void Output::UpdateWindow()
 {
     StatusBar->Draw(this);
+    sf::Texture Texture;
+    Texture.loadFromFile("Graphics/Components/file.png");
+    sf::Sprite Sprite;
+    Sprite.setTexture(Texture);
+    Sprite.setPosition(85, 20);
+    pWind->draw(Sprite);
     pWind->display();
 }
