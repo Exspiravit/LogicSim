@@ -3,13 +3,7 @@
 #include "Output.h"
 #include "Button.h"
 
-Bar::Bar(const GraphicsInfo& r_GfxInfo)
-{
-    m_GfxInfo.x = r_GfxInfo.x;
-    m_GfxInfo.y = r_GfxInfo.y;
-    m_GfxInfo.Height = r_GfxInfo.Height;
-    m_GfxInfo.Width = r_GfxInfo.Width;
-}
+Bar::Bar(const GraphicsInfo& r_GfxInfo): m_GfxInfo(r_GfxInfo) {}
 
 Bar::~Bar()
 {
